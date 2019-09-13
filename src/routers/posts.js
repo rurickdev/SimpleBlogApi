@@ -10,7 +10,7 @@ router.get('/', async (request, response) => {
 
   response.json({
     success: true,
-    message: 'Post deleted',
+    message: 'All Posts',
     data: {
       posts: allPosts
     }
@@ -55,6 +55,35 @@ router.delete('/:id', async (request, response) => {
     message: 'Post deleted',
     data: {
       post: deletedPost
+    }
+  })
+})
+
+router.patch('/:id', async (request, response) => {
+  const { id } = request.params
+  const {
+    title,
+    description,
+    author,
+    date,
+    readTime,
+    image
+  } = request.body
+
+  const updatedPost = await post.updateById(id, {
+    title,
+    description,
+    author,
+    date,
+    readTime,
+    image
+  })
+
+  response.json({
+    success: true,
+    message: 'Post Updated',
+    data: {
+      post: updatedPost
     }
   })
 })

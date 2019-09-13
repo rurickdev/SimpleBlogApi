@@ -25,8 +25,22 @@ async function deleteById (id) {
   return deletedPost
 }
 
+async function updateById (id, { title, date, readTime, description, author, image }) {
+  const post = await Post.findById(id)
+  const updatedPost = await Post.updateOne(post, {
+    title,
+    date,
+    readTime,
+    description,
+    author,
+    image
+  })
+  return updatedPost
+}
+
 module.exports = {
   create,
   getAll,
-  deleteById
+  deleteById,
+  updateById
 }
