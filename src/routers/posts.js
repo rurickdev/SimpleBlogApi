@@ -5,6 +5,18 @@ const post = require('../usecases/post')
 
 const router = express.Router()
 
+router.get('/', async (request, response) => {
+  const allPosts = await post.getAll()
+
+  response.json({
+    success: true,
+    message: 'Post deleted',
+    data: {
+      posts: allPosts
+    }
+  })
+})
+
 router.post('/', async (request, response) => {
   const {
     title,
