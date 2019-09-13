@@ -45,4 +45,18 @@ router.post('/', async (request, response) => {
   })
 })
 
+router.delete('/:id', async (request, response) => {
+  const { id } = request.params
+
+  const deletedPost = await post.deleteById(id)
+
+  response.json({
+    success: true,
+    message: 'Post deleted',
+    data: {
+      post: deletedPost
+    }
+  })
+})
+
 module.exports = router

@@ -19,7 +19,14 @@ function getAll () {
   return allPosts
 }
 
+async function deleteById (id) {
+  const post = await Post.findById(id)
+  const deletedPost = await Post.deleteOne(post)
+  return deletedPost
+}
+
 module.exports = {
   create,
-  getAll
+  getAll,
+  deleteById
 }
