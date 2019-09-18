@@ -52,17 +52,7 @@ router.get('/:id', async (request, response) => {
 
 router.post('/', async (request, response) => {
   try {
-    const {
-      name,
-      email,
-      password
-    } = request.body
-
-    const newUser = await user.create({
-      name,
-      email,
-      password
-    })
+    const newUser = await user.create(request.body)
 
     response.json({
       success: true,
