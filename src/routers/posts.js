@@ -6,86 +6,95 @@ const post = require('../usecases/post')
 const router = express.Router()
 
 router.get('/', async (request, response) => {
-  const allPosts = await post.getAll()
+  try {
+    const allPosts = await post.getAll()
 
-  response.json({
-    success: true,
-    message: 'All Posts',
-    data: {
-      posts: allPosts
-    }
-  })
+    response.json({
+      success: true,
+      message: 'All Posts',
+      data: {
+        posts: allPosts
+      }
+    })
+  } catch (error) {
+    response.json({
+      success: false,
+      message: 'Something failed',
+      data: {
+        error
+      }
+    })
+  }
 })
 
 router.post('/', async (request, response) => {
-  const {
-    title,
-    description,
-    author,
-    date,
-    readTime,
-    image
-  } = request.body
+  try {
+    const newPost = await post.create(request.body)
 
-  const newPost = await post.create({
-    title,
-    description,
-    author,
-    date,
-    readTime,
-    image
-  })
-
-  response.json({
-    success: true,
-    message: 'Post Created',
-    data: {
-      post: newPost
-    }
-  })
+    response.json({
+      success: true,
+      message: 'Post Created',
+      data: {
+        post: newPost
+      }
+    })
+  } catch (error) {
+    response.json({
+      success: false,
+      message: 'Something failed',
+      data: {
+        error
+      }
+    })
+  }
 })
 
 router.delete('/:id', async (request, response) => {
-  const { id } = request.params
+  try {
+    const { id } = request.params
 
-  const deletedPost = await post.deleteById(id)
+    const deletedPost = await post.deleteById(id)
 
-  response.json({
-    success: true,
-    message: 'Post deleted',
-    data: {
-      post: deletedPost
-    }
-  })
+    response.json({
+      success: true,
+      message: 'Post deleted',
+      data: {
+        post: deletedPost
+      }
+    })
+  } catch (error) {
+    response.json({
+      success: false,
+      message: 'Something failed',
+      data: {
+        error
+      }
+    })
+  }
 })
 
 router.patch('/:id', async (request, response) => {
-  const { id } = request.params
-  const {
-    title,
-    description,
-    author,
-    date,
-    readTime,
-    image
-  } = request.body
+  try {
+    const { id } = request.params
 
-  const updatedPost = await post.updateById(id, {
-    title,
-    description,
-    author,
-    date,
-    readTime,
-    image
-  })
+    const updatedPost = await post.updateById(id, request.body)
 
-  response.json({
-    success: true,
-    message: 'Post Updated',
-    data: {
-      post: updatedPost
-    }
-  })
+    response.json({
+      success: true,
+      message: 'Post Updated',
+      data: {
+        post: updatedPost
+      }
+    })
+  } catch (error) {
+    response.json({
+      success: false,
+      message: 'Something failed',
+      data: {
+        error
+      }
+    })
+  }
 })
 
 module.exports = router
