@@ -1,6 +1,10 @@
 
 const User = require('../models/users')
 
+function getAll () {
+  return User.find()
+}
+
 function create ({ name, email, password }) {
   return User.create({
     name,
@@ -19,6 +23,7 @@ async function deleteById (id) {
 }
 
 module.exports = {
+  getAll,
   create,
   getById,
   deleteById
