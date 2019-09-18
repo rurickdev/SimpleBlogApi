@@ -2,7 +2,7 @@
 const Post = require('../models/post')
 
 function create ({ title, date, readTime, description, author, image }) {
-  const newPost = new Post({
+  return Post.create({
     title,
     description,
     author,
@@ -10,24 +10,20 @@ function create ({ title, date, readTime, description, author, image }) {
     readTime,
     image
   })
-
-  return newPost.save()
 }
 
 function getAll () {
-  const allPosts = Post.find()
-  return allPosts
+  return Post.find()
 }
 
 async function deleteById (id) {
   const post = await Post.findById(id)
-  const deletedPost = await Post.deleteOne(post)
-  return deletedPost
+  return Post.deleteOne(post)
 }
 
 async function updateById (id, { title, date, readTime, description, author, image }) {
   const post = await Post.findById(id)
-  const updatedPost = await Post.updateOne(post, {
+  return Post.updateOne(post, {
     title,
     date,
     readTime,
@@ -35,7 +31,6 @@ async function updateById (id, { title, date, readTime, description, author, ima
     author,
     image
   })
-  return updatedPost
 }
 
 module.exports = {
