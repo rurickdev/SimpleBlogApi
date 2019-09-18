@@ -10,13 +10,15 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    minlength: 6,
+    minlength: 5,
     maxlength: 180,
-    required: true
+    required: true,
+    pattern: /^.+@.+\.+/
   },
   password: {
     type: String,
-    minlength: 8,
+    minlength: 10,
+    maxlength: 200,
     required: true
   }
 })
